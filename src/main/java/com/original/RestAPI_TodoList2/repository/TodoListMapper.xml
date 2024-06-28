@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "com.original.RestAPI_TodoList2.repository.TodoListMapper">
+	<select id = "selectAll" resultType = "com.original.RestAPI_TodoList2.dto.TodoItem">
+		SELECT *
+		FROM todoitems
+	</select>
+	<insert id = "insert" parameterType = "com.original.RestAPI_TodoList2.dto.TodoItem">
+		INSERT INTO todoitems(title, status, details) 
+		VALUES (#{title}, #{status}, #{details})
+	</insert>
+	<select id = "select" parameterType = "int" resultType = "com.original.RestAPI_TodoList2.dto.TodoItem">
+		SELECT *
+		FROM todoitems
+		WHERE id = #{id}
+	</select>
+	<delete id = "delete" parameterType = "int">
+		DELETE FROM todoitems
+		WHERE id = #{id}
+	</delete>
+</mapper>
