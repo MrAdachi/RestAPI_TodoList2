@@ -5,6 +5,21 @@
 		SELECT *
 		FROM todoitems
 	</select>
+	<select id = "selectNarrowDownStatusAndTitle" parameterType = "String" resultType = "com.original.RestAPI_TodoList2.dto.TodoItem">
+		SELECT *
+		FROM todoitems
+		WHERE status = #{status} AND title = #{title}
+	</select>
+	<select id = "selectNarrowDownStatus" parameterType = "String" resultType = "com.original.RestAPI_TodoList2.dto.TodoItem">
+		SELECT *
+		FROM todoitems
+		WHERE status = #{status}
+	</select>
+	<select id = "selectNarrowDownTitle" parameterType = "String" resultType = "com.original.RestAPI_TodoList2.dto.TodoItem">
+		SELECT *
+		FROM todoitems
+		WHERE title = #{title}
+	</select>
 	<insert id = "insert" parameterType = "com.original.RestAPI_TodoList2.dto.TodoItem">
 		INSERT INTO todoitems(title, status, details) 
 		VALUES (#{title}, #{status}, #{details})
@@ -25,4 +40,9 @@
 			details = #{details}
 		WHERE id = #{id}
 	</update>
+	<select id = "selectAllSortId" resultType = "com.original.RestAPI_TodoList2.dto.TodoItem">
+		SELECT *
+		FROM todoitems
+		ORDER BY id
+	</select>
 </mapper>

@@ -12,6 +12,15 @@ public interface TodoListMapper {
 	// selectAll(全取得)
 	List<TodoItem> selectAll();
 	
+	// selectNarrowDownStatusAndTitle(タイトルと状態で絞り込んだデータを取得)
+	List<TodoItem> selectNarrowDownStatusAndTitle(String status, String title);
+	
+	// selectNarrowDownStatus(状態で絞り込んだデータを取得)
+	List<TodoItem> selectNarrowDownStatus(String status);
+	
+	// selectNarrowDownTitle(タイトルで絞り込んだデータを取得)
+	List<TodoItem> selectNarrowDownTitle(String title);
+	
 	// insert(挿入)
 	void insert(TodoItem todoItem);
 	
@@ -23,5 +32,7 @@ public interface TodoListMapper {
 	
 	// update(更新)
 	void update(TodoItem todoItem);
-
+	
+	// selectAllSortId(IDでSortしたデータを全取得)
+	List<TodoItem> selectAllSortId();
 }

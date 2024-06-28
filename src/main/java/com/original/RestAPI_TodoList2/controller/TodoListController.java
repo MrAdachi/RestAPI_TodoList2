@@ -10,10 +10,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.original.RestAPI_TodoList2.dto.EnumStatus.Status;
 import com.original.RestAPI_TodoList2.dto.TodoItem;
 import com.original.RestAPI_TodoList2.service.TodoListService;
+
+import io.micrometer.common.util.StringUtils;
 
 @RestController
 @RequestMapping("/todos")
@@ -23,8 +27,19 @@ public class TodoListController {
 	private TodoListService todoListService;
 	
 	@GetMapping
-	public List<TodoItem> getAllTodoItems() {
-		return todoListService.retrieve();
+	public List<TodoItem> getAllTodoItems(@RequestParam(required = false) String status, @RequestParam(required = false) String title) {
+		
+		if(statusJudge(status) && StringUtils.isNotBlank(title)) {
+			return todoListService.retrieveNarrowDownStatusAndTitle(status, title);
+		} else if(statusJudge(status)) {
+			return todoListService.retrieveNarrowDownStatus(status);
+		} else if (StringUtils.isNotBlank(title)) {
+			return todoListService.retrieveNarrowDownTitle(title);
+		} else if (status == null && title == null) {
+			return todoListService.retrieve();
+		} else {
+			return null;
+		}
 	}
 	
 	@PostMapping
@@ -65,21 +80,36 @@ public class TodoListController {
 		}
 	}
 	
-	// statusのenum定義
-	public enum Status {
+	// ----------------------------------------- extra(start) -----------------------------------------
+	@GetMapping("/sort/{sortName}")
+	public List<TodoItem> getAllTodoItemsSort(@PathVariable("sortName") String sortName) {
 		
-		NotStarted("未着手"),
-		OnGoing("進行中"),
-		Completed("完了");
+		if(sortName.equals("id")) {
+			return todoListService.retrieveSortId();
+		} else if (sortName.equals("status")) {
+			return todoListService.retrieveSortStatus();
+		} else {
+			return todoListService.retrieve();
+		}
+	}
+	
+	// ----------------------------------------- extra(end)   -----------------------------------------
+	
+	// statusのqueryparameterの判定
+	private static boolean statusJudge(String status) {
 		
-		private String statusJapanese;
-		
-		private Status(String statusJapanese) {
-			this.statusJapanese = statusJapanese;
+		// statusの入力値がnullや空文字でないか判定する
+		if(StringUtils.isNotBlank(status)) {
+			
+			// statusの入力値がenumで定義されている値であるか判定する
+			for(Status enumStatus : Status.values()) {
+				
+				if(status.equals(enumStatus.getStatusJapanese())) {
+					return true;
+				}
+			}
 		}
 		
-		public String getStatusJapanese() {
-			return this.statusJapanese;
-		}
+		return false;
 	}
 }
