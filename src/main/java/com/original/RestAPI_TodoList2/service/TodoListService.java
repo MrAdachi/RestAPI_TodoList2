@@ -19,8 +19,8 @@ public class TodoListService {
 		return allTodoItems;
 	}
 
-	public void register(TodoItem todoitem) {
-		todoListMapper.insert(todoitem);
+	public void register(TodoItem todoItem) {
+		todoListMapper.insert(todoItem);
 	}
 
 	public TodoItem retrieve(int id) {
@@ -30,5 +30,10 @@ public class TodoListService {
 
 	public void delete(int id) {
 		todoListMapper.delete(id);
+	}
+
+	public void update(int id, TodoItem todoItem) {
+		todoItem.setId(id);
+		todoListMapper.update(todoItem);
 	}
 }

@@ -13,12 +13,15 @@ public interface TodoListMapper {
 	List<TodoItem> selectAll();
 	
 	// insert(挿入)
-	void insert(TodoItem todoitem);
+	void insert(TodoItem todoItem);
 	
 	// select(1データ取得)
 	TodoItem select(int id);
 	
 	// delete(1データ削除)
 	void delete(int id);
+	
+	// update(更新)
+	void update(TodoItem todoItem);
 
 }

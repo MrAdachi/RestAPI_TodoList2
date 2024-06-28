@@ -18,4 +18,11 @@
 		DELETE FROM todoitems
 		WHERE id = #{id}
 	</delete>
+	<update id = "update" parameterType = "com.original.RestAPI_TodoList2.dto.TodoItem">
+		UPDATE todoitems
+		SET title = #{title},
+			status = #{status},
+			details = #{details}
+		WHERE id = #{id}
+	</update>
 </mapper>

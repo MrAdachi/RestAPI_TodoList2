@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,15 +28,15 @@ public class TodoListController {
 	}
 	
 	@PostMapping
-	public void addTodoItem(@RequestBody TodoItem todoitem) {
+	public void addTodoItem(@RequestBody TodoItem todoItem) {
 		
-		String inputStatus = todoitem.getStatus();
+		String inputStatus = todoItem.getStatus();
 		
 		// statusの入力値がenumで定義されている値であるか判定する
 		for(Status enumStatus : Status.values()) {
 			
 			if(inputStatus.equals(enumStatus.getStatusJapanese())) {
-				todoListService.register(todoitem);
+				todoListService.register(todoItem);
 			}
 		}
 	}
@@ -48,6 +49,20 @@ public class TodoListController {
 	@DeleteMapping("{id}")
 	public void deleteTodoItem(@PathVariable("id") int id) {
 		todoListService.delete(id);
+	}
+	
+	@PutMapping("{id}")
+	public void updateTodoItem(@PathVariable("id") int id, @RequestBody TodoItem todoItem) {
+		
+		String inputStatus = todoItem.getStatus();
+		
+		// statusの入力値がenumで定義されている値であるか判定する
+		for(Status enumStatus : Status.values()) {
+			
+			if(inputStatus.equals(enumStatus.getStatusJapanese())) {
+				todoListService.update(id, todoItem);
+			}
+		}
 	}
 	
 	// statusのenum定義
