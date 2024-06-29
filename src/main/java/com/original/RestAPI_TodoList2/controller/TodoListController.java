@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.original.RestAPI_TodoList2.dto.EnumStatus.Status;
+import com.original.RestAPI_TodoList2.constant.EnumStatus.Status;
 import com.original.RestAPI_TodoList2.dto.TodoItem;
 import com.original.RestAPI_TodoList2.exception.TodoItemNotFoundException;
+
 import com.original.RestAPI_TodoList2.service.TodoListService;
 
 import io.micrometer.common.util.StringUtils;

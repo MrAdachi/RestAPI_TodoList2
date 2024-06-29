@@ -1,4 +1,4 @@
-package com.original.RestAPI_TodoList2.dto;
+package com.original.RestAPI_TodoList2.constant;
 
 public class EnumStatus {
 	

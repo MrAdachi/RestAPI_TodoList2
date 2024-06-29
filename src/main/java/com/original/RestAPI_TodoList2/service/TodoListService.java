@@ -7,7 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.original.RestAPI_TodoList2.dto.EnumStatus.Status;
+import com.original.RestAPI_TodoList2.constant.EnumStatus.Status;
 import com.original.RestAPI_TodoList2.dto.TodoItem;
 import com.original.RestAPI_TodoList2.repository.TodoListMapper;
 
