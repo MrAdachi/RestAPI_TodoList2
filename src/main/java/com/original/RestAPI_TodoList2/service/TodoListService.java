@@ -2,6 +2,7 @@ package com.original.RestAPI_TodoList2.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,8 +41,8 @@ public class TodoListService {
 		todoListMapper.insert(todoItem);
 	}
 
-	public TodoItem retrieve(int id) {
-		TodoItem getTodoItem = todoListMapper.select(id);
+	public Optional<TodoItem> retrieve(int id) {
+		Optional<TodoItem> getTodoItem = todoListMapper.select(id);
 		return getTodoItem;
 	}
 

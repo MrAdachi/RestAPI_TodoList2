@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.original.RestAPI_TodoList2.dto.EnumStatus.Status;
 import com.original.RestAPI_TodoList2.dto.TodoItem;
+import com.original.RestAPI_TodoList2.exception.TodoItemNotFoundException;
 import com.original.RestAPI_TodoList2.service.TodoListService;
 
 import io.micrometer.common.util.StringUtils;
@@ -58,16 +59,20 @@ public class TodoListController {
 	
 	@GetMapping("{id}")
 	public TodoItem getTodoItem(@PathVariable("id") int id) {
-		return todoListService.retrieve(id);
+		return todoListService.retrieve(id).orElseThrow(() -> new TodoItemNotFoundException(id));
 	}
 	
 	@DeleteMapping("{id}")
 	public void deleteTodoItem(@PathVariable("id") int id) {
+		// dataの有無判定(deleteするIDのデータ取得)
+		todoListService.retrieve(id).orElseThrow(() -> new TodoItemNotFoundException(id));
 		todoListService.delete(id);
 	}
 	
 	@PutMapping("{id}")
 	public void updateTodoItem(@PathVariable("id") int id, @RequestBody TodoItem todoItem) {
+		// dataの有無判定(deleteするIDのデータ取得)
+		todoListService.retrieve(id).orElseThrow(() -> new TodoItemNotFoundException(id));
 		
 		String inputStatus = todoItem.getStatus();
 		

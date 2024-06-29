@@ -1,6 +1,7 @@
 package com.original.RestAPI_TodoList2.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -25,7 +26,7 @@ public interface TodoListMapper {
 	void insert(TodoItem todoItem);
 	
 	// select(1データ取得)
-	TodoItem select(int id);
+	Optional<TodoItem> select(int id);
 	
 	// delete(1データ削除)
 	void delete(int id);
